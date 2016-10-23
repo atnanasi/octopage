@@ -13,7 +13,7 @@ use \Michelf\Markdown;
 $page_root = "/srv/html/www/test";
 $access_token = "someUUID";
 //###TEXT### is replaced by body text
-$header_text = file_get_contents("header.html");
+$header_text = file_get_contents("{$page_root}/header.html");
 
 //Check pageroot
 if (!(file_exists($page_root))) {
@@ -37,7 +37,7 @@ if ($_GET["access_token"] != $access_token) {
 shell_exec("cd {$page_root} && git reset --hard HEAD && git pull");
 
 //Parse md and write html file
-foreach (glob("{$page_root}/*.txt") as $filename) {
+foreach (glob("{$page_root}/*.md") as $filename) {
 	//Get filename without extension
 	preg_match("/(.*)(?:\.([^.]+$))/",$filename,$filenames);
 
@@ -49,5 +49,7 @@ foreach (glob("{$page_root}/*.txt") as $filename) {
 	$html = str_replace("###TEXT###", $parsed, $header_text);
 
 	//write html file.
+	if (touch("{$filenames[1]}.html")) echo "hoge";
 	file_put_contents ("{$filenames[1]}.html", $html);
+	echo "{$filenames[1]}.html";
 }
