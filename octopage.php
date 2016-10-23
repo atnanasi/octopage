@@ -28,7 +28,7 @@ if (!(file_exists("{$page_root}/.git"))) {
 }
 
 //Check token
-if ($_GET["$access_token"] != $access_token) {
+if ($_GET["access_token"] != $access_token) {
 	echo "Error:Invalid token";
 	exit ;
 }
