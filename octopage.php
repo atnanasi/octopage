@@ -49,7 +49,5 @@ foreach (glob("{$page_root}/*.md") as $filename) {
 	$html = str_replace("###TEXT###", $parsed, $header_text);
 
 	//write html file.
-	if (touch("{$filenames[1]}.html")) echo "hoge";
 	file_put_contents ("{$filenames[1]}.html", $html);
-	echo "{$filenames[1]}.html";
 }
